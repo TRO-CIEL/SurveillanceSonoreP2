@@ -54,6 +54,12 @@ void loop() {
   // Acquisition des données sonores via DMA
   son.SamplesDmaAcquisition();
 
+  // Affichage sur Serial Plotter (visualisation temps réel)
+  Serial.print("Moyen: ");
+  Serial.print(son.niveauSonoreMoyen);
+  Serial.print("  Crete: ");
+  Serial.println(son.niveauSonoreCrete);
+
   // Envoi des données vers le serveur HTTP
   com.SendPostRequest( son.toJsonDocument() );
 
