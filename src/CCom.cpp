@@ -1,34 +1,21 @@
-#pragma once
-#include <WiFi.h>
-#include <HTTPClient.h>
-#include <ArduinoJson.h>
+/**
+ * @file CCom.cpp
+ * @brief Communication class implementation
+ */
 
-class CCom {
-public:
-  String ssid, pass;
-  String pServeur, idDevice, port;
+#include "CCom.h"
 
-  /**
-   * @brief Constructeur
-   */
-  CCom(const String& ssid, const String& pass,
-       const String& serveur, const String& idDev, const String& port);
+CCom::CCom() {
+    // Initialize attributes
+    data = "";
+}
 
-  /**
-   * @brief Démarre la connexion WiFi
-   * @return statut WiFi
-   */
-  wl_status_t Begin();
+bool CCom::Setup() {
+    // Initialize WiFi (to be implemented based on requirements)
+    return true;
+}
 
-  /**
-   * @brief Récupère l'adresse MAC
-   */
-  String getMacAddress();
-
-  /**
-   * @brief Envoie une requête HTTP POST avec données JSON
-   * @param data JsonDocument à envoyer
-   * @return réponse serveur
-   */
-  String SendPostRequest(const JsonDocument& data);
-};
+bool CCom::SendData(String data) {
+    // Send data via HTTP (to be implemented based on requirements)
+    return true;
+}

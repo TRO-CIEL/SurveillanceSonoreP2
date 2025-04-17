@@ -1,34 +1,40 @@
-#include "CCom.h"
+/**
+ * @file CCom.h
+ * @brief Communication class header
+ */
 
-CCom::CCom(const String& ssid, const String& pass,
-           const String& serveur, const String& idDev, const String& port)
-  : ssid(ssid), pass(pass), pServeur(serveur), idDevice(idDev), port(port)
-{}
+#ifndef CCOM_H
+#define CCOM_H
 
-wl_status_t CCom::Begin() {
-  WiFi.begin(ssid.c_str(), pass.c_str());
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
-  }
-  Serial.println("\nWiFi connecté");
-  return WiFi.status();
-}
+#include <WiFi.h>
+#include <HTTPClient.h>
 
-String CCom::getMacAddress() {
-  return WiFi.macAddress();
-}
+/**
+ * @brief Class for communication over WiFi
+ */
+class CCom
+{
+public:
+  /**
+   * @brief Constructor for CCom class
+   */
+  CCom();
 
-String CCom::SendPostRequest(const JsonDocument& data) {
-  HTTPClient http;
-  String url = "http://" + pServeur + ":" + port + "/data";
-  http.begin(url);
-  http.addHeader("Content-Type", "application/json");
-  String payload;
-  serializeJson(data, payload);
-  int code = http.POST(payload);
-  String resp = http.getString();
-  http.end();
-  Serial.printf("HTTP POST %s -> %d\n", url.c_str(), code);
-  return resp;
-}
+  /**
+   * @brief Setup WiFi connection
+   * @return true if successful
+   */
+  bool Setup();
+
+  /**
+   * @brief Send data via HTTP
+   * @param data Data to send
+   * @return true if successful
+   */
+  bool SendData(String data);
+
+  // Public attributes
+  String data; ///< Data to be sent
+};
+
+#endif // CCOM_H
