@@ -1,6 +1,8 @@
 /**
  * @file CSon.h
- * @brief Sound acquisition and processing class header
+ * @brief Fichier d'en-tête pour la classe d'acquisition et de traitement sonore
+ * @author Votre Nom
+ * @date 17/04/2025
  */
 
 #ifndef CSON_H
@@ -9,55 +11,60 @@
 #include "arduinoFFT.h"
 #include <driver/i2s.h>
 
-// Constants
-#define SAMPLES 512             // Number of samples
-#define SAMPLING_FREQUENCY 44100 // Sampling frequency in Hz
-#define DMA_BUF_LEN 512         // DMA buffer size: 512 samples
-#define DMA_BUF_COUNT 8         // Number of DMA buffers: 8
+// Constantes
+#define SAMPLES 512              ///< Nombre d'échantillons
+#define SAMPLING_FREQUENCY 44100 ///< Fréquence d'échantillonnage en Hz
+#define DMA_BUF_LEN 512          ///< Taille du buffer DMA: 512 échantillons
+#define DMA_BUF_COUNT 8          ///< Nombre de buffers DMA: 8
 
 /**
- * @brief Class for sound acquisition and processing
+ * @brief Classe pour l'acquisition et le traitement du son
+ * 
+ * Cette classe gère l'acquisition du son via I2S et le traitement
+ * du signal sonore (niveaux, FFT, pondération).
  */
 class CSon {
 public:
     /**
-     * @brief Constructor for CSon class
+     * @brief Constructeur de la classe CSon
+     * 
+     * Initialise les paramètres I2S et les attributs de la classe.
      */
     CSon();
     
     /**
-     * @brief Setup I2S interface
-     * @return ESP_OK if successful
+     * @brief Configure l'interface I2S
+     * @return ESP_OK si réussi
      */
     esp_err_t Setup();
     
     /**
-     * @brief Acquire samples using DMA
-     * @return ESP_OK if successful
+     * @brief Acquiert des échantillons en utilisant le DMA
+     * @return ESP_OK si réussi
      */
     esp_err_t SamplesDmaAcquisition();
     
     /**
-     * @brief Apply A-Weighting filter to the signal
-     * @param signal Input signal array
-     * @param output Output filtered signal array
-     * @param length Length of arrays
+     * @brief Applique un filtre de pondération A au signal
+     * @param signal Tableau du signal d'entrée
+     * @param output Tableau du signal filtré en sortie
+     * @param length Longueur des tableaux
      */
-    void applyAWeighting(double* signal, double* output, size_t length);
+    void appliquerPonderationA(double* signal, double* output, size_t length);
     
-    // Public attributes
-    esp_err_t result;                  ///< Result of last operation
-    int32_t i2sData[SAMPLES];          ///< I2S data buffer
-    double vReal[SAMPLES];             ///< FFT Real part
-    double vImag[SAMPLES];             ///< FFT Imaginary part
-    float niveauSonoreMoyen;           ///< Average sound level
-    float niveauSonoreCrete;           ///< Peak sound level
-    int tempsEchantillon;              ///< Sampling time in ms
+    // Attributs publics
+    esp_err_t result;                  ///< Résultat de la dernière opération
+    int32_t i2sData[SAMPLES];          ///< Buffer de données I2S
+    double vReal[SAMPLES];             ///< Partie réelle de la FFT
+    double vImag[SAMPLES];             ///< Partie imaginaire de la FFT
+    float niveauSonoreMoyen;           ///< Niveau sonore moyen
+    float niveauSonoreCrete;           ///< Niveau sonore crête
+    int tempsEchantillon;              ///< Temps d'échantillonnage en ms
 
 private:
-    i2s_pin_config_t pinCconfig;       ///< I2S pin configuration
-    i2s_config_t i2sConfig;            ///< I2S configuration
-    ArduinoFFT<double> FFT;            ///< FFT object
+    i2s_pin_config_t pinCconfig;       ///< Configuration des broches I2S
+    i2s_config_t i2sConfig;            ///< Configuration I2S
+    ArduinoFFT<double> FFT;            ///< Objet FFT
 };
 
 #endif // CSON_H
