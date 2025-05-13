@@ -22,7 +22,7 @@ CCom com;                       // Instance pour la communication (non utilisée
  * @brief Affiche le spectre de fréquences sur l'écran OLED
  * @param vRe Tableau contenant les amplitudes fréquentielles (partie réelle FFT)
  */
-void AfficherSpecte(double* vRe) {
+void AfficherSpecte(double* vRe) { // Affchier Spectre
   int largeurBarre = 1;       // Largeur de chaque barre
   int espacement = 0;         // Espacement entre les barres
   int hauteurMax = 63;        // Hauteur maximale de l'écran (64 lignes)
