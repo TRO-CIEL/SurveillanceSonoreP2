@@ -1,6 +1,8 @@
 /**
  * @file CCom.h
- * @brief Communication class header
+ * @brief Fichier d'en-tête pour la classe de communication WiFi
+ * @author Votre Nom
+ * @date 17/04/2025
  */
 
 #ifndef CCOM_H
@@ -10,31 +12,36 @@
 #include <HTTPClient.h>
 
 /**
- * @brief Class for communication over WiFi
+ * @brief Classe permettant la communication via le réseau WiFi
+ * 
+ * Cette classe offre une interface pour se connecter à un réseau WiFi
+ * et envoyer des données via des requêtes HTTP.
  */
 class CCom
 {
 public:
   /**
-   * @brief Constructor for CCom class
+   * @brief Constructeur de la classe CCom
+   * 
+   * Initialise les attributs de communication.
    */
   CCom();
 
   /**
-   * @brief Setup WiFi connection
-   * @return true if successful
+   * @brief Initialise la connexion WiFi
+   * @return true si la connexion est réussie, false sinon
    */
   bool Setup();
 
   /**
-   * @brief Send data via HTTP
-   * @param data Data to send
-   * @return true if successful
+   * @brief Envoie des données via HTTP (POST)
+   * @param data Données à envoyer sous forme de chaîne
+   * @return true si l'envoi est réussi, false sinon
    */
   bool SendData(String data);
 
-  // Public attributes
-  String data; ///< Data to be sent
+  // Attributs publics
+  String data; ///< Données à envoyer
 };
 
 #endif // CCOM_H

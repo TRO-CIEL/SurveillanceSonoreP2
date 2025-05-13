@@ -1,21 +1,21 @@
 /**
  * @file CCom.cpp
- * @brief Communication class implementation
+ * @brief Implémentation de la classe de communication
  */
 
 #include "CCom.h"
 
 CCom::CCom() {
-    // Initialize attributes
+    // Initialisation des attributs
     data = "";
 }
 
 bool CCom::Setup() {
-    // Initialize WiFi (to be implemented based on requirements)
+    // Initialisation du WiFi (à implémenter selon les besoins)
     return true;
 }
 
 bool CCom::SendData(String data) {
-    // Send data via HTTP (to be implemented based on requirements)
+    // Envoi des données via HTTP (à implémenter selon les besoins)
     return true;
 }
