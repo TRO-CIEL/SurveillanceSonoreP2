@@ -108,3 +108,5 @@ void loop() {
   // Réinitialiser la moyenne pour le prochain cycle
   niveauSonoreMoy = 0;
 }
+
+// Oublie de syncro
